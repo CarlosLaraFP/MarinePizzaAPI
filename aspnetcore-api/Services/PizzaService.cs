@@ -1,6 +1,6 @@
 ﻿using aspnetcore_api.Models;
 
-namespace ContosoPizza.Services;
+namespace aspnetcore_api.Services;
 
 public static class PizzaService
 {
@@ -20,6 +20,11 @@ public static class PizzaService
 
     public static Pizza? Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
 
+    /*
+        If you want to ensure that the list's contents cannot be modified outside the class (or at all), you'd need to use a
+        collection that is explicitly immutable (like ImmutableList<T> from the System.Collections.Immutable namespace)
+        or return a read-only view of the list (like the result of List<T>.AsReadOnly()).
+     */
     public static void Add(Pizza pizza)
     {
         pizza.Id = nextId++;
