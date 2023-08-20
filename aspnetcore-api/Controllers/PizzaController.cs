@@ -35,9 +35,43 @@ public class PizzaController : ControllerBase
     }
     // Queries the database (via the service [interdace]) for a pizza that matches the provided id parameter.
 
-    // POST action
+    // IActionResult lets the client know if the request succeeded and provides the ID of the newly created pizza.
+    // POST action: CreatedAtAction or BadRequest
+    [HttpPost]
+    public IActionResult Create(Pizza pizza)
+    {
+        PizzaService.Add(pizza);
+        // nameof(Get) because the response shows how to access the newly created object via full URL
+        return CreatedAtAction(nameof(Get), new { id = pizza.Id }, pizza);
+    }
 
-    // PUT action
+    // Returns IActionResult, because the ActionResult return type isn't known until runtime.
+    // The BadRequest, NotFound, and NoContent methods return BadRequestResult, NotFoundResult, and NoContentResult types, respectively.
+    // PUT action: NoContent (successfully updated) or BadRequest (either parameter)
+    [HttpPut("{id}")]
+    public IActionResult Update(int id, Pizza newPizza)
+    {
+        if (id != newPizza.Id) return BadRequest();
 
-    // DELETE action
+        var currentPizza = PizzaService.Get(id);
+
+        if (currentPizza is null) return NotFound();
+
+        PizzaService.Update(newPizza);
+
+        return NoContent();
+    }
+
+    // DELETE action: NoContent (successfully deleted) or NotFound  
+    [HttpDelete("{id}")]
+    public IActionResult Delete(int id)
+    {
+        var pizza = PizzaService.Get(id);
+
+        if (pizza is null) return NotFound();
+
+        PizzaService.Delete(id);
+
+        return NoContent();
+    }
 }
