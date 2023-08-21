@@ -2,12 +2,14 @@
 
 namespace aspnetcore_api.Services;
 
-public static class PizzaService
+public class PizzaService
 {
     // The absence of an explicit access modifier = private implicitly
-    static List<Pizza> Pizzas { get; }
-    static int nextId = 3;
-    static PizzaService()
+    private List<Pizza> Pizzas { get; }
+
+    private int nextId = 3;
+
+    public PizzaService()
     {
         Pizzas = new List<Pizza>
         {
@@ -16,31 +18,47 @@ public static class PizzaService
         };
     }
 
-    public static List<Pizza> GetAll() => Pizzas;
+    public IEnumerable<Pizza> GetAll() => Pizzas;
 
-    public static Pizza? Get(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
+    public Pizza? GetById(int id) => Pizzas.FirstOrDefault(p => p.Id == id);
 
     /*
         If you want to ensure that the list's contents cannot be modified outside the class (or at all), you'd need to use a
         collection that is explicitly immutable (like ImmutableList<T> from the System.Collections.Immutable namespace)
         or return a read-only view of the list (like the result of List<T>.AsReadOnly()).
      */
-    public static void Add(Pizza pizza)
+    public Pizza? Create(Pizza newPizza)
     {
-        pizza.Id = nextId++;
-        Pizzas.Add(pizza);
+        newPizza.Id = nextId++;
+        Pizzas.Add(newPizza);
+        return newPizza;
     }
 
-    public static void Delete(int id)
+    public void AddTopping(int PizzaId, int ToppingId)
     {
-        var pizza = Get(id);
+        throw new NotImplementedException();
+    }
+
+    public void UpdateSauce(int PizzaId, int SauceId)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void DeleteById(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void Delete(int id)
+    {
+        var pizza = GetById(id);
 
         if (pizza is null) return;
 
         Pizzas.Remove(pizza);
     }
 
-    public static void Update(Pizza pizza)
+    public void Update(Pizza pizza)
     {
         var index = Pizzas.FindIndex(p => p.Id == pizza.Id);
 
