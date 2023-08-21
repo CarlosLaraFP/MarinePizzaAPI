@@ -13,7 +13,7 @@ public class PizzaController : ControllerBase
 {
     PizzaService _service;
 
-    // Dependency injection
+    // PizzaService is injected into the PizzaController constructor.
     public PizzaController(PizzaService service)
     {
         _service = service;

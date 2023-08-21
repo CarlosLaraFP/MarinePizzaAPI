@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 
 // Add PromotionsContext
 
+// PizzaService is registered with the ASP.NET Core dependency injection system
 builder.Services.AddScoped<PizzaService>();
 
 var app = builder.Build();
