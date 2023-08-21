@@ -12,7 +12,7 @@ namespace MarinePizza.Controllers;
 [Route("[controller]")]
 public class PizzaController : ControllerBase
 {
-    IPizzaService _service;
+    private readonly IPizzaService _service;
 
     // PizzaService is injected into the PizzaController constructor.
     // Generates the routes and endpoints for the given implementation of PizzaService.
@@ -81,7 +81,7 @@ public class PizzaController : ControllerBase
     // The NotFound and NoContent methods return NotFoundResult and NoContentResult types, respectively.
     // DELETE action: NoContent (successfully deleted) or NotFound  
     [HttpDelete("{id}")]
-    public IActionResult Delete(int id)
+    public IActionResult DeleteById(int id)
     {
         var pizza = _service.GetById(id);
 
@@ -97,17 +97,4 @@ public class PizzaController : ControllerBase
     // Returns IActionResult, because the ActionResult return type isn't known until runtime.
     // The BadRequest, NotFound, and NoContent methods return BadRequestResult, NotFoundResult, and NoContentResult types, respectively.
     // PUT action: NoContent (successfully updated) or BadRequest (either parameter)
-    [HttpPut("{id}")]
-    public IActionResult Update(int id, Pizza newPizza)
-    {
-        if (id != newPizza.Id) return BadRequest();
-
-        var currentPizza = _service.GetById(id);
-
-        if (currentPizza is null) return NotFound();
-
-        _service.Update(newPizza);
-
-        return NoContent();
-    }
 }
