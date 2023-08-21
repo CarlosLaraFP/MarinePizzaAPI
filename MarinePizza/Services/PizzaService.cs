@@ -1,8 +1,10 @@
-﻿using MarinePizza.Models;
+﻿using MarinePizza.Interfaces;
+using MarinePizza.Models;
 
 namespace MarinePizza.Services;
 
-public class PizzaService
+// In this specific case we have a scoped service because each client connection has its own state (i.e. nextId).
+public class PizzaService : IPizzaService
 {
     // The absence of an explicit access modifier = private implicitly
     private List<Pizza> Pizzas { get; }

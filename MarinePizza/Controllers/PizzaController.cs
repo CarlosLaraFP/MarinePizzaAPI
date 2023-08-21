@@ -1,5 +1,6 @@
 ﻿using MarinePizza.Models;
 using MarinePizza.Services;
+using MarinePizza.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarinePizza.Controllers;
@@ -11,10 +12,11 @@ namespace MarinePizza.Controllers;
 [Route("[controller]")]
 public class PizzaController : ControllerBase
 {
-    PizzaService _service;
+    IPizzaService _service;
 
     // PizzaService is injected into the PizzaController constructor.
-    public PizzaController(PizzaService service)
+    // Generates the routes and endpoints for the given implementation of PizzaService.
+    public PizzaController(IPizzaService service)
     {
         _service = service;
     }

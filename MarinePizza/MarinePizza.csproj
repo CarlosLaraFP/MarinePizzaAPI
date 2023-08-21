@@ -7,7 +7,7 @@
     <RootNamespace>MarinePizza</RootNamespace>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(RunConfiguration)' == 'MarinePizza' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'aspnetcore_api' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.10">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -20,9 +20,11 @@
   <ItemGroup>
     <None Remove="Promotions\" />
     <None Remove="Data\" />
+    <None Remove="Interfaces\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Promotions\" />
     <Folder Include="Data\" />
+    <Folder Include="Interfaces\" />
   </ItemGroup>
 </Project>
