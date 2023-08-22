@@ -56,6 +56,10 @@ public static class DbInitializer
             }
         };
 
+        /*
+            The Pizza objects (and their Sauce and Topping navigation properties) are added to the object graph by using AddRange.
+            The object graph changes are committed to the database by using SaveChanges.
+         */
         context.Pizzas.AddRange(pizzas);
         context.SaveChanges();
     }

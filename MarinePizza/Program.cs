@@ -1,5 +1,6 @@
 ﻿using MarinePizza.Services;
 using MarinePizza.Data;
+using MarinePizza.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +26,8 @@ builder.Services.AddSqlite<PizzaContext>("Data Source=MarinePizza.db");
 // Add PromotionsContext
 
 // PizzaService is registered with the ASP.NET Core dependency injection system
-builder.Services.AddScoped<PizzaService>();
+//builder.Services.AddScoped<PizzaService>();
+builder.Services.AddScoped<IPizzaService, PizzaService>();
 
 var app = builder.Build();
 
@@ -42,7 +44,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// Add the CreateDbIfNotExists method call
+// call the new extension method
+app.CreateDbIfNotExists();
 
 app.MapGet("/", () => @"Pizza management API. Navigate to /swagger to open the Swagger test UI.");
 
