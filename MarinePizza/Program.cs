@@ -1,4 +1,8 @@
-﻿using MarinePizza.Services;
+﻿/*
+    A solution (top level directory) is a container for 1 or more related projects (independently compiled).
+ */
+
+using MarinePizza.Services;
 using MarinePizza.Data;
 using MarinePizza.Interfaces;
 
